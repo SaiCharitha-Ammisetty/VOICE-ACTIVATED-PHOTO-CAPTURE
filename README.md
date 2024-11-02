@@ -1,6 +1,4 @@
-Here’s a README for your **Voice-Activated Photo Capture** project using Flask and Python:
 
----
 
 # Voice-Activated Photo Capture
 
@@ -43,6 +41,4 @@ Contributions are welcome! If you have ideas or improvements, feel free to open 
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
---- 
 
-This provides a clear overview and installation guide for users to get started quickly. Let me know if you’d like any further customization!
