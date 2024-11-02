@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Capture Image</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://i.pinimg.com/736x/1a/19/c1/1a19c11524b1d43e4fc9d5009a28280e.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        .capture-container {
+            max-width: 800px;
+            margin: auto;
+        }
+        #capturedImage {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .capture-button {
+            margin-top: 20px;
+            position: relative;
+            transform: translateY(50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="capture-container">
+        <h1><font color="#2e4053">CAPTURE MAGIC: TAKE A PHOTO!</font></h1>
+        <br><h3><font color="#F08080">Say CAPTURE !!</font></h3>
+        <img id="capturedImage" src="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg" alt="Captured Photo">
+        <center>
+           <br><h4><font color="#566573" family="Bradley Hand ITC"> Click the Button And Say Capture to Preview the Image....</font></h4>
+        </center>
+        <button class="btn btn-primary btn-lg capture-button" onclick="captureImage()" style="transform: translateY(-1px);">Click Here To Capture</button>
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function captureImage() {
+            fetch('/capture', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const capturedImage = document.getElementById('capturedImage');
+                    capturedImage.src = data.image_url + '?t=' + new Date().getTime(); // Prevent caching
+                } else {
+                    alert(data.message || "Error capturing image.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</body>
+</html>
